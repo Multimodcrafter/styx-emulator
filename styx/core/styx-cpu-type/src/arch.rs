@@ -88,6 +88,7 @@ pub mod mips32;
 pub mod mips64;
 pub mod msp430;
 pub mod ppc32;
+pub mod riscv;
 pub mod superh;
 
 // need to explicitly use these (since that is all that is required
@@ -105,6 +106,7 @@ use msp430::{
     SpecialMsp430XRegister,
 };
 use ppc32::{variants::*, Ppc32MetaVariants, Ppc32Register, SpecialPpc32Register};
+use riscv::{variants::*, RiscVMetaVariants, RiscVRegister};
 use superh::{variants::*, SpecialSuperHRegister, SuperHMetaVariants, SuperHRegister};
 
 /// Enum used for endianness selection of target cpu emulation
@@ -849,6 +851,7 @@ pub mod backends {
         Msp430(Msp430Register),
         Msp430X(Msp430XRegister),
         Hexagon(HexagonRegister),
+        RiscV(RiscVRegister),
     }
 
     impl BasicArchRegister {
@@ -864,6 +867,7 @@ pub mod backends {
                 Self::Msp430(b) => b.register_value_enum(),
                 Self::Msp430X(b) => b.register_value_enum(),
                 Self::Hexagon(b) => b.register_value_enum(),
+                Self::RiscV(b) => b.register_value_enum(),
             }
         }
     }
@@ -942,6 +946,7 @@ pub mod backends {
         Ppc32(Ppc32MetaVariants),
         SuperH(SuperHMetaVariants),
         Hexagon(HexagonMetaVariants),
+        RiscV(RiscVMetaVariants),
     }
 
     impl From<ArchVariant> for Box<dyn ArchitectureDef> {
@@ -956,6 +961,7 @@ pub mod backends {
                 ArchVariant::SuperH(superh_meta) => superh_meta.into(),
                 ArchVariant::Msp430(msp430_meta) => msp430_meta.into(),
                 ArchVariant::Hexagon(hexagon_meta) => hexagon_meta.into(),
+                ArchVariant::RiscV(riscv_meta) => riscv_meta.into(),
             }
         }
     }
@@ -1194,6 +1200,7 @@ pub enum GdbTargetDescriptionImpl {
     Sh4Description(superh::gdb_targets::Sh4Description),
     Sh4NoFpuDescription(superh::gdb_targets::Sh4NoFpuDescription),
     HexagonDescription(hexagon::gdb_targets::HexagonCpuTargetDescription),
+    RiscVCoreDescription(riscv::gdb_targets::RiscVCoreDescription),
 }
 
 /// A utility trait used to expidite the gdb implementation details,
