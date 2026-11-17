@@ -77,6 +77,17 @@ impl From<crate::arch::ArchEndian> for unicorn_const::Mode {
     }
 }
 
+impl From<crate::arch::riscv::RiscVMetaVariants> for unicorn_engine::Riscv32CpuModel {
+    fn from(value: crate::arch::riscv::RiscVMetaVariants) -> Self {
+        use crate::arch::riscv::RiscVMetaVariants as STYX_RISCV;
+        use unicorn_engine::Riscv32CpuModel as UC_RISCV;
+
+        match value {
+            STYX_RISCV::RV32IMAC(_) => UC_RISCV::UC_CPU_RISCV32_ANY,
+        }
+    }
+}
+
 impl From<crate::arch::arm::ArmMetaVariants> for unicorn_engine::ArmCpuModel {
     fn from(value: crate::arch::arm::ArmMetaVariants) -> Self {
         use crate::arch::arm::ArmMetaVariants as STYX_ARM;
@@ -158,6 +169,49 @@ impl From<crate::arch::ppc32::Ppc32MetaVariants> for unicorn_engine::PpcCpuModel
 //
 // now registers
 //
+
+impl From<crate::arch::riscv::RiscVRegister> for unicorn_engine::RegisterRISCV {
+    fn from(value: crate::arch::riscv::RiscVRegister) -> Self {
+        use crate::arch::riscv::RiscVRegister as STYX_RISCV;
+        use unicorn_engine::RegisterRISCV as UC_RISCV;
+
+        match value {
+            STYX_RISCV::Pc => UC_RISCV::PC,
+            STYX_RISCV::X0 => UC_RISCV::X0,
+            STYX_RISCV::X1 => UC_RISCV::X1,
+            STYX_RISCV::X2 => UC_RISCV::X2,
+            STYX_RISCV::X3 => UC_RISCV::X3,
+            STYX_RISCV::X4 => UC_RISCV::X4,
+            STYX_RISCV::X5 => UC_RISCV::X5,
+            STYX_RISCV::X6 => UC_RISCV::X6,
+            STYX_RISCV::X7 => UC_RISCV::X7,
+            STYX_RISCV::X8 => UC_RISCV::X8,
+            STYX_RISCV::X9 => UC_RISCV::X9,
+            STYX_RISCV::X10 => UC_RISCV::X10,
+            STYX_RISCV::X11 => UC_RISCV::X11,
+            STYX_RISCV::X12 => UC_RISCV::X12,
+            STYX_RISCV::X13 => UC_RISCV::X13,
+            STYX_RISCV::X14 => UC_RISCV::X14,
+            STYX_RISCV::X15 => UC_RISCV::X15,
+            STYX_RISCV::X16 => UC_RISCV::X16,
+            STYX_RISCV::X17 => UC_RISCV::X17,
+            STYX_RISCV::X18 => UC_RISCV::X18,
+            STYX_RISCV::X19 => UC_RISCV::X19,
+            STYX_RISCV::X20 => UC_RISCV::X20,
+            STYX_RISCV::X21 => UC_RISCV::X21,
+            STYX_RISCV::X22 => UC_RISCV::X22,
+            STYX_RISCV::X23 => UC_RISCV::X23,
+            STYX_RISCV::X24 => UC_RISCV::X24,
+            STYX_RISCV::X25 => UC_RISCV::X25,
+            STYX_RISCV::X26 => UC_RISCV::X26,
+            STYX_RISCV::X27 => UC_RISCV::X27,
+            STYX_RISCV::X28 => UC_RISCV::X28,
+            STYX_RISCV::X29 => UC_RISCV::X29,
+            STYX_RISCV::X30 => UC_RISCV::X30,
+            STYX_RISCV::X31 => UC_RISCV::X31,
+        }
+    }
+}
 
 impl From<crate::arch::ppc32::Ppc32Register> for unicorn_engine::RegisterPPC {
     fn from(value: crate::arch::ppc32::Ppc32Register) -> Self {

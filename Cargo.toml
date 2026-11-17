@@ -213,6 +213,7 @@ unicorn-engine = { version = "=2.1.2", features = [
   "arch_aarch64",
   "arch_mips",
   "arch_ppc",
+  "arch_riscv",
 ], default-features = false }
 libafl = { version = "0.13.2" }
 libafl_bolts = { version = "0.13.2" }

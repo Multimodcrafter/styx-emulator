@@ -25,6 +25,7 @@ pub fn styx_to_unicorn_machine(
         // add arch options, required for some architectures for some reason
         out_mode |= match arch {
             Arch::Ppc32 => unicorn_const::Mode::PPC32,
+            Arch::Riscv => unicorn_const::Mode::RISCV32,
             _ => unicorn_const::Mode::empty(),
         };
 
@@ -50,6 +51,10 @@ fn styx_to_unicorn_cpu_model(
         }
         ArchVariant::Ppc32(inner) => {
             let tmp: unicorn_engine::PpcCpuModel = inner.into();
+            tmp.into()
+        }
+        ArchVariant::RiscV(inner) => {
+            let tmp: unicorn_engine::Riscv32CpuModel = inner.into();
             tmp.into()
         }
         other => {

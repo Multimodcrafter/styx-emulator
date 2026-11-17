@@ -195,6 +195,9 @@ pub fn styx_to_unicorn_register(reg: ArchRegister) -> Result<i32, UnknownError> 
         ArchRegister::Special(SpecialArchRegister::Ppc32(inner)) => {
             Ok(Into::<unicorn_engine::RegisterPPC>::into(inner).into())
         }
+        ArchRegister::Basic(BasicArchRegister::RiscV(inner)) => {
+            Ok(Into::<unicorn_engine::RegisterRISCV>::into(inner).into())
+        }
         // unhandled architecture
         _ => Err(anyhow!("unhandled arch")),
     }
